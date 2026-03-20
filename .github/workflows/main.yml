@@ -54,7 +54,8 @@ jobs:
           
       - name: Upload to API and Cleanup
         env:
-          API_URL: ${{ secrets.API_URL }}
+          # API_URL: ${{ secrets.API_URL }}
+          API_URL: ${{ secrets.UPLOAD_API_URL }}v0/management/auth-files
           API_KEY: ${{ secrets.MANAGEMENT_KEY }}
         run: |
           # 1. 判断是否配置了这两个变量
