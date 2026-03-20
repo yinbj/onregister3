@@ -625,17 +625,18 @@ def main():
             # token_file.write_text(token_json, encoding="utf-8")
             file_name = f"token_{fname_email}_{int(time.time())}.json"
             token_file = os.path.join("tokens", file_name)
+            token_file=Path(token_file)
             try:
                 #原始代码
                 # file_path.write_text(token_json, encoding="utf-8")
                 #修改代码
                 with open(token_file, "w", encoding="utf-8") as f:
                     f.write(token_json)
-                print(f"[*] 成功! Token 已保存至: {token_file}")
+                print(f"[*] 成功! Token 已保存至: {token_file.name}")
             except Exception as e:
                 print(f"[Error] 保存 token 失败: {e}")
 
-            print(f"[*] Token 文件已保存: {token_file}")
+            print(f"[*] Token 文件已保存: {token_file.name}")
 
             # 3. 上传 CPA（可选）
             upload_ok = False
@@ -647,7 +648,7 @@ def main():
                 try:
                     if token_file.exists():
                         token_file.unlink()
-                        print(f"[本地清理] 已删除 token 文件: {token_file}")
+                        print(f"[本地清理] 已删除 token 文件: {token_file.name}")
                 except Exception as e:
                     print(f"[本地清理] 删除 token 文件失败: {e}")
                 _remove_account_entry(tokens_dir / "accounts.txt", email, real_pwd)
