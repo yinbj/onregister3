@@ -54,7 +54,7 @@ jobs:
           
       - name: Upload to API and Cleanup
         env:
-          API_URL: ${{ secrets.UPLOAD_API_URL }}
+          API_URL: ${{ secrets.UPLOAD_API_URL }}/v0/management/auth-files
           API_KEY: ${{ secrets.MANAGEMENT_KEY }}
         run: |
           # 1. 判断是否配置了这两个变量
@@ -64,7 +64,7 @@ jobs:
           fi
           
           # 2. 检查 Json 文件夹是否存在且有 json 文件
-          if [ -d "Json" ] && ls tokens/*.json 1> /dev/null 2>&1; then
+          if [ -d "tokens" ] && ls tokens/*.json 1> /dev/null 2>&1; then
             for file in tokens/*.json; do
               echo "正在上传: $file"
               
