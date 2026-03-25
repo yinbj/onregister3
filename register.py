@@ -985,7 +985,7 @@ def main():
     parser.add_argument("--sleep-min", type=int, default=5, help="最小间隔(秒)")
     parser.add_argument("--sleep-max", type=int, default=30, help="最大间隔(秒)")
     parser.add_argument("--threads", type=int, default=1, help="并发线程数")  # 新增线程数参数
-    parser.add_argument("--thread-delay", type=int, default=5, max=30, help="线程启动间隔(秒)，用于错峰防风控")
+    parser.add_argument("--thread-delay", type=int, default=5, help="线程启动间隔(秒)，用于错峰防风控")
     parser.add_argument("--cpa-base-url", default=os.getenv("CPA_BASE_URL"), help="CPA 基础地址")
     parser.add_argument("--cpa-token", default=os.getenv("CPA_TOKEN"), help="CPA 管理 token (Bearer)")
     parser.add_argument("--cpa-workers", type=int, default=20, help="CPA 清理并发")
