@@ -6,7 +6,7 @@ on:
       run_count:
         description: '请输入本次需要注册的账号数量'
         required: true
-        default: '2'
+        default: '10'
         type: string
   schedule:
     - cron: '0 19 * * *'  # 0代表星期日。如果你想改在星期一，就写 '0 0 * * 1'
@@ -47,9 +47,9 @@ jobs:
           echo "准备循环运行 $COUNT 次注册流程..."
           if [ -n "$PROXY_URL" ]; then
             # 传入 --count 参数
-            python register.py --count "$COUNT" --proxy "$PROXY_URL" --cpa-upload --cpa-prune-local
+            python register.py --count "$COUNT" --proxy "$PROXY_URL" --cpa-upload --cpa-prune-local --mail-provider auto
           else
-            python register.py --count "$COUNT" --cpa-upload --cpa-prune-local
+            python register.py --count "$COUNT" --cpa-upload --cpa-prune-local --mail-provider auto
           fi
           
       - name: Upload to API and Cleanup
