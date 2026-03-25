@@ -985,7 +985,7 @@ def main():
     parser.add_argument("--sleep-min", type=int, default=5, help="最小间隔(秒)")
     parser.add_argument("--sleep-max", type=int, default=30, help="最大间隔(秒)")
     parser.add_argument("--threads", type=int, default=1, help="并发线程数")  # 新增线程数参数
-    parser.add_argument("--thread-delay", type=int, default=5, help="线程启动间隔(秒)，用于错峰防风控")
+    parser.add_argument("--thread-delay", type=int, default=5, max=30, help="线程启动间隔(秒)，用于错峰防风控")
     parser.add_argument("--cpa-base-url", default=os.getenv("CPA_BASE_URL"), help="CPA 基础地址")
     parser.add_argument("--cpa-token", default=os.getenv("CPA_TOKEN"), help="CPA 管理 token (Bearer)")
     parser.add_argument("--cpa-workers", type=int, default=20, help="CPA 清理并发")
@@ -1102,7 +1102,8 @@ def main():
                 for i in range(args.threads):
                     # futures.append(executor.submit(register_task, i))
                     # 每轮递增偏移，避免多轮后线程重叠启动
-                    start_offset = round_count * args.threads * args.thread_delay
+                    # start_offset = round_count * args.threads * args.thread_delay
+                    start_offset=random.randint(0, args.thread_delay)  # 每轮随机错峰
                     futures.append(executor.submit(register_task, i, start_offset))
                 # 等待所有线程完成
                 for future in as_completed(futures):
@@ -1136,7 +1137,8 @@ def main():
                 futures = []
                 for i in range(this_batch):
                     # 每轮线程的起始偏移 = 批次号 × 线程数 × 间隔
-                    start_offset = batch_index * args.threads * args.thread_delay
+                    # start_offset = batch_index * args.threads * args.thread_delay
+                    start_offset=random.randint(0, args.thread_delay)  # 每轮随机错峰
                     futures.append(executor.submit(register_task, i, start_offset))
                     # futures.append(executor.submit(register_task, i, start_offset=batch_index * args.thread_delay))
                 
