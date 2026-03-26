@@ -47,9 +47,9 @@ jobs:
           echo "准备循环运行 $COUNT 次注册流程..."
           if [ -n "$PROXY_URL" ]; then
             # 传入 --count 参数
-            python register.py --count "$COUNT" --proxy "$PROXY_URL" --cpa-upload --cpa-prune-local --mail-provider auto --threads 3
+            python register.py --count "$COUNT" --proxy "$PROXY_URL" --cpa-clean --cpa-upload --cpa-prune-local --mail-provider auto --threads 3
           else
-            python register.py --count "$COUNT" --cpa-upload --cpa-prune-local --mail-provider auto --threads 3
+            python register.py --count "$COUNT" --cpa-clean --cpa-upload --cpa-prune-local --mail-provider auto --threads 3
           fi
           
       - name: Upload to API and Cleanup
